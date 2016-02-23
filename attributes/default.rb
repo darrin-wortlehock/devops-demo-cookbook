@@ -1,1 +1,1 @@
-default['gocd']['agent']['autoregister']['key'] = SecureRandom::hex
+default['gocd']['agent']['autoregister']['key'] = SecureRandom.hex

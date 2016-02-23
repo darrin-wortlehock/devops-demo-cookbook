@@ -16,10 +16,10 @@ include_recipe 'gocd::server'
 
 template '/etc/go/cruise-config.xml' do
   source 'cruise-config.xml.erb'
-  variables ({
-      :uuid => SecureRandom::uuid,
-      :agent_autoregister_key => node['gocd']['agent']['autoregister']['key']
-  })
+  variables(
+    uuid: SecureRandom.uuid,
+    agent_autoregister_key: node['gocd']['agent']['autoregister']['key']
+  )
   action :nothing
   subscribes :create, 'template[/etc/default/go-server]', :immediately
   notifies :restart, 'service[go-server]'
