@@ -13,4 +13,9 @@ include_recipe 'apt-docker'
 package 'docker-engine'
 
 include_recipe 'gocd::server'
-include_recipe 'gocd::agent'
+
+group 'docker' do
+  action :modify
+  members 'go'
+  append true
+end
