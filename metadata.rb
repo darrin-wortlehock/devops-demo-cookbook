@@ -1,0 +1,12 @@
+name             'devops-demo'
+maintainer       'Darrin Wortlehock'
+maintainer_email 'darrin@wortlehock.net'
+license          'All rights reserved'
+description      'Installs/Configures devops-demo'
+long_description 'Installs/Configures devops-demo'
+version          '0.1.0'
+
+depends 'ntp', '~> 1.10.1'
+depends 'nginx', '~> 2.7.6'
+depends 'gocd', '~> 1.1.1'
+depends 'openvpn', '~> 2.1.0'
