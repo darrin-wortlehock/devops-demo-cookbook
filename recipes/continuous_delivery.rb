@@ -14,6 +14,14 @@ package 'docker-engine'
 
 include_recipe 'gocd::server'
 
+template '/etc/go/cruise-config.xml' do
+  source 'cruise-config.xml.erb'
+  variables ({
+      :uuid => SecureRandom::uuid
+  })
+  notifies :restart, 'service[go-server]'
+end
+
 group 'docker' do
   action :modify
   members 'go'

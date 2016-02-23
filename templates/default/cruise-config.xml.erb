@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="78">
+  <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="<%= @uuid %>" />
+  <pipelines group="defaultGroup">
+    <pipeline name="Cookbook">
+      <materials>
+        <git url="https://github.com/darrin-wortlehock/devops-demo-cookbook.git" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>bundle</arg>
+                <arg>install</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>berks</arg>
+                <arg>install</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>rake</arg>
+                <arg>style</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>rake</arg>
+                <arg>spec</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>rake</arg>
+                <arg>integration</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+</cruise>
