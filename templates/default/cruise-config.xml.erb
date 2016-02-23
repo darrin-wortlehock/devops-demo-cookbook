@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="78">
-  <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="<%= @uuid %>" />
+  <server artifactsdir="artifacts" commandRepositoryLocation="default" agentAutoRegisterKey="<%= @agent_autoregister_key %>" serverId="<%= @uuid %>" />
   <pipelines group="defaultGroup">
     <pipeline name="Cookbook">
       <materials>
