@@ -2,7 +2,6 @@ require 'chefspec'
 require_relative 'spec_helper'
 
 describe 'devops-demo::continuous_delivery' do
-
   let(:chef_run) { ChefSpec::ServerRunner.new.converge(described_recipe) }
 
   it 'includes the gocd::server recipe' do
@@ -14,5 +13,4 @@ describe 'devops-demo::continuous_delivery' do
   end
 
   it 'configures gocd delivery pipelines'
-
 end

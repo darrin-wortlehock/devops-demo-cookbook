@@ -8,4 +8,3 @@
 #
 
 include_recipe 'openvpn'
-

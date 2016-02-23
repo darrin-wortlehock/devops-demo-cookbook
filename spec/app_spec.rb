@@ -2,7 +2,6 @@ require 'chefspec'
 require_relative 'spec_helper'
 
 describe 'devops-demo::app' do
-
   let(:chef_run) { ChefSpec::ServerRunner.new.converge(described_recipe) }
 
   it 'includes the devops-demo::_base recipe' do
@@ -12,5 +11,4 @@ describe 'devops-demo::app' do
   it 'installs the latest devops-demo package' do
     expect(chef_run).to install_package('devops-demo-app')
   end
-
 end
