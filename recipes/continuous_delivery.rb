@@ -22,7 +22,7 @@ template '/etc/go/cruise-config.xml' do
   })
   action :nothing
   subscribes :create, 'template[/etc/default/go-server]', :immediately
-  notify :restart, 'service[go-server]'
+  notifies :restart, 'service[go-server]'
 end
 
 gocd_agent 'go-agent' do
