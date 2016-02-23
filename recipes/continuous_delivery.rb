@@ -8,5 +8,9 @@
 #
 
 include_recipe 'devops-demo::_base'
+
+include_recipe 'apt-docker'
+package 'docker-engine'
+
 include_recipe 'gocd::server'
 include_recipe 'gocd::agent'
