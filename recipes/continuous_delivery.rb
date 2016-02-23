@@ -14,8 +14,6 @@ package 'docker-engine'
 
 include_recipe 'gocd::server'
 
-include_recipe 'gocd::agent'
-
 template '/etc/go/cruise-config.xml' do
   source 'cruise-config.xml.erb'
   variables ({
@@ -24,6 +22,8 @@ template '/etc/go/cruise-config.xml' do
   })
   notifies :restart, 'service[go-server]'
 end
+
+include_recipe 'gocd::agent'
 
 group 'docker' do
   action :modify
