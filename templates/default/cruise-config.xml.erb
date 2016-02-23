@@ -6,9 +6,9 @@
       <materials>
         <git url="https://github.com/darrin-wortlehock/devops-demo-cookbook.git" />
       </materials>
-      <stage name="defaultStage">
+      <stage name="Test">
         <jobs>
-          <job name="defaultJob">
+          <job name="runStyleTests">
             <tasks>
               <exec command="/opt/chefdk/bin/chef">
                 <arg>exec</arg>
@@ -28,16 +28,74 @@
                 <arg>style</arg>
                 <runif status="passed" />
               </exec>
+            </tasks>
+          </job>
+          <job name="runUnitTests">
+            <tasks>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>bundle</arg>
+                <arg>install</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>berks</arg>
+                <arg>install</arg>
+                <runif status="passed" />
+              </exec>
               <exec command="/opt/chefdk/bin/chef">
                 <arg>exec</arg>
                 <arg>rake</arg>
                 <arg>spec</arg>
                 <runif status="passed" />
               </exec>
+            </tasks>
+          </job>
+          <job name="runIntegrationTests">
+            <tasks>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>bundle</arg>
+                <arg>install</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>berks</arg>
+                <arg>install</arg>
+                <runif status="passed" />
+              </exec>
               <exec command="/opt/chefdk/bin/chef">
                 <arg>exec</arg>
                 <arg>rake</arg>
                 <arg>integration</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="Deploy">
+        <jobs>
+          <job name="upload_cookbook">
+            <tasks>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>bundle</arg>
+                <arg>install</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>berks</arg>
+                <arg>install</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>berks</arg>
+                <arg>upload</arg>
                 <runif status="passed" />
               </exec>
             </tasks>
