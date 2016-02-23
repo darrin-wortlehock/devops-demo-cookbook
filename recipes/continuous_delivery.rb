@@ -20,10 +20,15 @@ template '/etc/go/cruise-config.xml' do
       :uuid => SecureRandom::uuid,
       :agent_autoregister_key => node['gocd']['agent']['autoregister']['key']
   })
-  notifies :restart, 'service[go-server]'
+  action :nothing
+  subscribes :create, 'template[/etc/default/go-server]', :immediately
+  notify :restart, 'service[go-server]'
 end
 
-include_recipe 'gocd::agent'
+gocd_agent 'go-agent' do
+  action :nothing
+  subscribes :create, 'service[go-server]'
+end
 
 group 'docker' do
   action :modify
