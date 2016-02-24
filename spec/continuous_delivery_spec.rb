@@ -7,7 +7,7 @@ describe 'devops-demo::continuous_delivery' do
   let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
   before do
-    stub_command("/usr/local/go/bin/go version | grep \"go1.6 \"").and_return(nil)
+    stub_command('/usr/local/go/bin/go version | grep "go1.6 "')
   end
 
   it 'includes the golang recipe' do
