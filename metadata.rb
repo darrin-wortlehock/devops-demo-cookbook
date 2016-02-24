@@ -4,7 +4,7 @@ maintainer_email 'darrin@wortlehock.net'
 license 'All rights reserved'
 description 'Installs/Configures devops-demo'
 long_description 'Installs/Configures devops-demo'
-version '0.1.0'
+version IO.read(File.join(File.dirname(__FILE__), 'VERSION')) rescue "0.0.0"
 
 depends 'apt-docker', '~> 0.3.0'
 depends 'gocd', '~> 1.1.1'
