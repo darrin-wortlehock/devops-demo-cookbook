@@ -12,6 +12,8 @@ include_recipe 'devops-demo::_base'
 include_recipe 'apt-docker'
 package 'docker-engine'
 
+include_recipe 'golang::default'
+
 include_recipe 'gocd::server'
 
 template '/etc/go/cruise-config.xml' do

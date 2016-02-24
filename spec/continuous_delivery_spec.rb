@@ -6,6 +6,15 @@ ChefSpec.define_matcher :gocd_agent
 describe 'devops-demo::continuous_delivery' do
   let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
+  before do
+    stub_command("/usr/local/go/bin/go version | grep \"go1.6 \"").and_return(nil)
+  end
+
+  it 'includes the golang recipe' do
+    expect(chef_run).to include_recipe('golang::default')
+    expect(chef_run.node['go']['version']).to eq('1.6')
+  end
+
   it 'includes the gocd::server recipe' do
     expect(chef_run).to include_recipe('gocd::server')
   end
