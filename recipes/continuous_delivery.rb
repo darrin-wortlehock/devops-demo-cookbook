@@ -8,6 +8,7 @@
 #
 
 include_recipe 'devops-demo::_base'
+include_recipe 'devops-demo::_chef_shell'
 
 include_recipe 'apt-docker'
 package 'docker-engine'
