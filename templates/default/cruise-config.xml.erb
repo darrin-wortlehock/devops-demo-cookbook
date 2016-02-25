@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="78">
   <server artifactsdir="artifacts" commandRepositoryLocation="default" agentAutoRegisterKey="<%= @agent_autoregister_key %>" serverId="<%= @uuid %>" />
-  <pipelines group="defaultGroup">
-    <pipeline name="Cookbook">
+    <pipelines group="defaultGroup">
+    <pipeline name="devops-demo-cookbook">
       <materials>
         <git url="https://github.com/darrin-wortlehock/devops-demo-cookbook.git" />
       </materials>
@@ -72,6 +72,13 @@
                 <arg>integration</arg>
                 <runif status="passed" />
               </exec>
+              <exec command="/opt/chefdk/bin/chef">
+                <arg>exec</arg>
+                <arg>scmversion</arg>
+                <arg>bump</arg>
+                <arg>patch</arg>
+                <runif status="passed" />
+              </exec>
             </tasks>
           </job>
         </jobs>
@@ -79,6 +86,11 @@
       <stage name="Deploy">
         <jobs>
           <job name="upload_cookbook">
+            <environmentvariables>
+              <variable name="SSL_CERT_FILE">
+                <value>/etc/chef/trusted_certs/chef-server.internal.devops-demo.co.uk.crt</value>
+              </variable>
+            </environmentvariables>
             <tasks>
               <exec command="/opt/chefdk/bin/chef">
                 <arg>exec</arg>
