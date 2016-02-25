@@ -6,9 +6,9 @@
       <materials>
         <git url="https://github.com/darrin-wortlehock/devops-demo-cookbook.git" />
       </materials>
-      <stage name="Test">
+      <stage name="test">
         <jobs>
-          <job name="runStyleTests">
+          <job name="run_style_tests">
             <tasks>
               <exec command="/opt/chefdk/bin/chef">
                 <arg>exec</arg>
@@ -30,7 +30,7 @@
               </exec>
             </tasks>
           </job>
-          <job name="runUnitTests">
+          <job name="run_unit_tests">
             <tasks>
               <exec command="/opt/chefdk/bin/chef">
                 <arg>exec</arg>
@@ -52,7 +52,7 @@
               </exec>
             </tasks>
           </job>
-          <job name="runIntegrationTests">
+          <job name="run_integration_tests">
             <tasks>
               <exec command="/opt/chefdk/bin/chef">
                 <arg>exec</arg>
@@ -83,7 +83,7 @@
           </job>
         </jobs>
       </stage>
-      <stage name="Deploy">
+      <stage name="deploy">
         <jobs>
           <job name="upload_cookbook">
             <environmentvariables>
@@ -108,6 +108,33 @@
                 <arg>exec</arg>
                 <arg>berks</arg>
                 <arg>upload</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="devops-demo-app" isLocked="false">
+      <materials>
+        <git url="https://github.com/darrin-wortlehock/devops-demo-app.git" />
+      </materials>
+      <stage name="build">
+        <jobs>
+          <job name="build">
+            <environmentvariables>
+              <variable name="GOPATH">
+                <value>/var/go/golang</value>
+              </variable>
+            </environmentvariables>
+            <tasks>
+              <exec command="./ci-setup.sh">
+                <runif status="passed" />
+              </exec>
+              <exec command="/opt/chefdk/embedded/bin/bundle">
+                <arg>exec</arg>
+                <arg>rake</arg>
+                <arg>build</arg>
                 <runif status="passed" />
               </exec>
             </tasks>
