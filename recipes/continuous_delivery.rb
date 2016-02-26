@@ -17,6 +17,13 @@ include_recipe 'golang::default'
 
 include_recipe 'gocd::server'
 
+directory '/var/go/.chef' do
+  owner 'go'
+  group 'go'
+  mode '0755'
+  action :create
+end
+
 template '/var/go/.chef/config.rb' do
   source 'chef-config.rb.erb'
   variables(
@@ -24,6 +31,13 @@ template '/var/go/.chef/config.rb' do
     node_name: node['gocd']['agent']['chef']['node_name'],
     client_key: node['gocd']['agent']['chef']['client_key']
   )
+end
+
+directory '/var/go/.berkshelf' do
+  owner 'go'
+  group 'go'
+  mode '0755'
+  action :create
 end
 
 template '/var/go/.berkshelf/config.json' do
