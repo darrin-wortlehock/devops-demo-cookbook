@@ -8,3 +8,4 @@
 #
 
 include_recipe 'ntp'
+include_recipe 'chef-client::service'
