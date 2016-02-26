@@ -44,9 +44,17 @@ template '/var/go/.berkshelf/config.json' do
   source 'berks-config.json.erb'
 end
 
+secrets_bucket = data_bag_item('terraform', 'aws_s3_bucket.devops-demo-secrets')['name']
+Chef::Log.warn("Using Secrets Bucket: #{secrets_bucket}")
+
+log 'secrets_bucket' do
+  message "Using Secrets Bucket: #{secrets_bucket}"
+  level :warn
+end
+
 awscli_s3_file node['gocd']['agent']['chef']['client_key'] do
-  bucket data_bag_item('terraform', 'aws_s3_bucket.devops-demo-secrets')['name']
-  key node['gocd']['agent']['chef']['node_name']
+  bucket secrets_bucket
+  key "#{node['gocd']['agent']['chef']['node_name']}.pem"
 end
 
 template '/etc/go/cruise-config.xml' do
