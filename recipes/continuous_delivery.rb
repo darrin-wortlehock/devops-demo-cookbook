@@ -26,6 +26,10 @@ template '/var/go/.chef/config.rb' do
   )
 end
 
+template '/var/go/.berkshelf/config.json' do
+  source 'berks-config.json.erb'
+end
+
 awscli_s3_file node['gocd']['agent']['chef']['client_key'] do
   bucket data_bag_item('terraform', 'aws_s3_bucket.devops-demo-secrets')['name']
   key node['gocd']['agent']['chef']['node_name']
