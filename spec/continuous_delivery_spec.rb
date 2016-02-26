@@ -8,6 +8,11 @@ describe 'devops-demo::continuous_delivery' do
 
   before do
     stub_command('/usr/local/go/bin/go version | grep "go1.6 "')
+    stub_data_bag_item('terraform', 'aws_s3_bucket.devops-demo-secrets')
+      .and_return(
+        id: 'aws_s3_bucket.devops-demo-secrets',
+        name: 'devops-demo-secrets-vpc-99999999'
+      )
   end
 
   it 'includes the golang recipe' do
