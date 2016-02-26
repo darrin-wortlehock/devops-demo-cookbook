@@ -20,9 +20,9 @@ include_recipe 'gocd::server'
 template '/var/go/.chef/config.rb' do
   source 'chef-config.rb.erb'
   variables(
-      chef_server_url: node['gocd']['agent']['chef']['server_url'],
-      node_name: node['gocd']['agent']['chef']['node_name'],
-      client_key: node['gocd']['agent']['chef']['client_key']
+    chef_server_url: node['gocd']['agent']['chef']['server_url'],
+    node_name: node['gocd']['agent']['chef']['node_name'],
+    client_key: node['gocd']['agent']['chef']['client_key']
   )
 end
 
