@@ -44,7 +44,11 @@ template '/var/go/.berkshelf/config.json' do
   source 'berks-config.json.erb'
 end
 
-secrets_bucket = data_bag_item('terraform', 'aws_s3_bucket.devops-demo-secrets')['bucket']
+secrets_bucket = data_bag_item(
+  'terraform',
+  'aws_s3_bucket.devops-demo-secrets'
+)['bucket']
+
 Chef::Log.warn("Using Secrets Bucket: #{secrets_bucket}")
 
 log 'secrets_bucket' do
